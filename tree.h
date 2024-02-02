@@ -11,5 +11,8 @@ typedef struct node{
 
 node *generate_tree(char *board_string, char prev_char);
 node *generate_node(char *board_string, char prev_char);
+void free_tree(node *beginning);
+int evaluate_node(node *current_node);
+int get_number_of_next_nodes(node *current_node);
 
 #endif

@@ -348,19 +348,36 @@ int test_generate_node(){
 
 	node *test_node = generate_node(test, 'X');
 
-	printf("%s\n",test_node -> next_nodes[0] -> board_string);
-	printf("%s\n",test_node -> next_nodes[0] -> next_nodes[0] -> board_string);
+	free_tree(test_node);
+	free(board_test);
+
+	return 0;
+}
+
+int test_evaluate_node(){
+	char test[10] = {'X','O',' ','X',' ','O',' ','O',' ','\0'};
+	Board *board_test = string_to_board(test);
+
+	node *test_node = generate_node(test, 'O');
+
+	int number_of_nodes = get_number_of_next_nodes(test_node);
+	for (int i = 0; i < number_of_nodes; i++){
+		node *next_node = test_node -> next_nodes[i];
+		printf("%s %i\n", next_node -> board_string, evaluate_node(next_node));
+		free_tree(next_node);
+	}
 
 
-
+	free_tree(test_node);
+	free(board_test);
 
 
 	return 0;
-
 }
 
 int main(void){
 
+	test_evaluate_node();
 	test_generate_node();
 	int counter = 0;
 	counter += test_accross();

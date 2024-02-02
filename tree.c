@@ -44,11 +44,46 @@ node *generate_node(char *board_string, char prev_char){
 	return result_node;
 }
 
-node *generate_tree(char *board_string, char prev_char){
+void free_tree(node *beginning){
+	if (beginning == NULL){
+		return;
+	}
 
+	int number_of_nodes = 0;
+	for (int i = 0; i < 9; i++){
+		if (beginning -> board_string[i] == ' '){
+			number_of_nodes++;
+		}
+	}
 
+	for (int i = 0; i < number_of_nodes; i++){
+		free_tree(beginning -> next_nodes[i]);
+	}
 
-
+	free(beginning);
 }
 
+int evaluate_node(node *current_node){
+	Board *tmp_board = string_to_board(current_node ->board_string);
 
+	int result = check_winner(tmp_board);
+
+	free(tmp_board);
+
+	return result;
+}
+
+int get_number_of_next_nodes(node *current_node){
+	int result = 0;
+
+	for (int i = 0; i < 9; i++){
+		if (current_node -> board_string[i] == ' '){
+			result++;
+		}
+	}
+
+	return result;
+}
+
+int minimax(node *current_node){
+}
