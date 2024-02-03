@@ -116,6 +116,10 @@ int main(void){
 			break;
 		} 
 
+		if (board -> total_remaining == 0){
+			break;
+		}
+
 
 		node *current_node = generate_node(board_string, player_char);
 		x = get_next_move(current_node, is_maximizing_player, board);
@@ -146,6 +150,10 @@ int main(void){
 			printf("O wins!\n");
 			break;
 		} 
+
+		if (board -> total_remaining == 0){
+			break;
+		}
 	}
 
 	if (check_winner(board) == 0){
