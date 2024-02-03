@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "board.h"
 #include <stdbool.h>
+#include <string.h>
 #include "tree.h"
 
 int test_accross(){
@@ -375,15 +376,12 @@ int test_evaluate_node(){
 }
 
 int test_minimax(){
-	char test[10] = {' ','O',' ',
-		         ' ',' ','X',
-	                 'X','O',' ','\0'};
+	char test[10] = {' ',' ',' ',
+		         ' ',' ',' ',
+	                 ' ',' ',' ','\0'};
 	Board *board_test = string_to_board(test);
 
 	node *test_node = generate_node(test, 'O');
-
-
-	printf("%i\n",get_next_move(test_node, true));
 
 	free_tree(test_node);
 	free(board_test);
@@ -392,9 +390,42 @@ int test_minimax(){
 }
 
 
+int test_board_to_string(){
+	char test[10] = {' ',' ',' ',
+		         ' ',' ',' ',
+	                 ' ',' ',' ','\0'};
+	Board *board_test = string_to_board(test);
+
+	printf("%s\n", test);
+
+	node *test_node = generate_node(test, 'O');
+	int x = get_next_move(test_node, true, board_test);
+	add_char(board_test, 'X', x);
+
+	char temp[10];
+	
+	int counter = 0; 
+	for (int i = 0; i < 3; i++){
+		for (int j = 0; j <3; j++){
+			temp[counter] = board_test -> values[i][j];
+			counter++;
+		}
+	}
+	temp[9] = '\0';
+	strcpy(test, temp);
+
+	printf("%s\n", test);
+
+	free_tree(test_node);
+	free(board_test);
+	return 0;
+
+}
+
 int main(void){
 
-	test_minimax();
+	test_board_to_string();
+	//test_minimax();
 	//test_evaluate_node();
 	test_generate_node();
 	int counter = 0;

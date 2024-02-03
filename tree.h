@@ -16,6 +16,6 @@ void free_tree(node *beginning);
 int evaluate_node(node *current_node);
 int get_number_of_next_nodes(node *current_node);
 int minimax(node *current_node, bool maximizing_player);
-int get_next_move(node *current_node, bool maximizing_player);
+int get_next_move(node *current_node, bool maximizing_player, Board *board);
 
 #endif

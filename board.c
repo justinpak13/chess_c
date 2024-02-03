@@ -13,8 +13,6 @@ Board *new_board(void){
 
 	for (int i = 0; i < 9; i++){
 		board -> remaining[i] = i + 1;
-
-
 	}
 
 	board -> total_remaining = 9;
@@ -34,9 +32,13 @@ void board_to_string(Board *board, char *board_string){
 Board *string_to_board(char * board_string){
 	Board *result = new_board();
 
+
 	for (int i = 0; i < 9; i++){
-		add_char(result, board_string[i], i+1);
+		if (board_string[1] != ' '){
+			add_char(result, board_string[i], i+1);
+		}
 	}
+
 
 	return result;
 }

@@ -128,7 +128,16 @@ int find_difference(node *node1, node *node2){
 	return -1;
 }
 
-int get_next_move(node *current_node, bool maximizing_player){
+bool is_not_taken(int available_list[9], int value ){
+	for (int i = 0; i < 9; i++){
+		if (available_list[i] == value){
+			return true;
+		}
+	}
+	return false;
+}
+
+int get_next_move(node *current_node, bool maximizing_player, Board *board){
 	int number_of_next_nodes = get_number_of_next_nodes(current_node);
 
 	int start_val = minimax(current_node -> next_nodes[0], !maximizing_player);
@@ -137,16 +146,19 @@ int get_next_move(node *current_node, bool maximizing_player){
 	for (int i = 0; i < number_of_next_nodes; i++){
 		if(maximizing_player){
 			if (minimax(current_node -> next_nodes[i], !maximizing_player) > start_val){
-				index = i;
+				if (is_not_taken(board ->remaining, find_difference(current_node, current_node -> next_nodes[index]))){
+					index = i;
+				}
 			}
 		} else {
 			if (minimax(current_node -> next_nodes[i], !maximizing_player) < start_val){
-				index = i;
+				if (is_not_taken(board ->remaining, find_difference(current_node, current_node -> next_nodes[index]))){
+					index = i;
+				}
 			}
 		}
 
 	}
-	printf("%s\n", current_node -> next_nodes[index] -> board_string);
 
 	return find_difference(current_node, current_node -> next_nodes[index]);
 }

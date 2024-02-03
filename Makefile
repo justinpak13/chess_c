@@ -1,5 +1,5 @@
-output : main.o board.o
-	gcc main.o board.o -o prog 
+output : main.o board.o tree.o
+	gcc main.o board.o tree.o -o prog 
 
 test : test.o board.o tree.o
 	gcc test.o board.o tree.o -o test
