@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tree.h"
+#include <stdbool.h>
 
 
 node *generate_node(char *board_string, char prev_char){
@@ -85,5 +86,67 @@ int get_number_of_next_nodes(node *current_node){
 	return result;
 }
 
-int minimax(node *current_node){
+int minimax(node *current_node, bool maximizing_player){
+	int next_nodes = get_number_of_next_nodes(current_node);
+
+	if (next_nodes == 0 || evaluate_node(current_node) != 0){
+		return evaluate_node(current_node);
+	}
+
+	
+	int compare_value;
+
+	if (maximizing_player){
+		compare_value = -5;
+	} else {
+		compare_value = 5;
+	}
+
+	int temp;
+	for (int i = 0; i < next_nodes; i++){
+		temp = minimax(current_node -> next_nodes[i], !maximizing_player);
+		if (maximizing_player) {
+			if(temp > compare_value) {
+				compare_value = temp;
+			}
+		} else {
+			if (temp < compare_value){
+				compare_value = temp;
+			}
+		}
+	}
+
+	return compare_value;
+}
+
+int find_difference(node *node1, node *node2){
+	for (int i = 0; i < 9; i++){
+		if (node1 -> board_string[i] != node2 -> board_string[i]){
+			return i + 1; 
+		}
+	}
+	return -1;
+}
+
+int get_next_move(node *current_node, bool maximizing_player){
+	int number_of_next_nodes = get_number_of_next_nodes(current_node);
+
+	int start_val = minimax(current_node -> next_nodes[0], !maximizing_player);
+
+	int index = 0;
+	for (int i = 0; i < number_of_next_nodes; i++){
+		if(maximizing_player){
+			if (minimax(current_node -> next_nodes[i], !maximizing_player) > start_val){
+				index = i;
+			}
+		} else {
+			if (minimax(current_node -> next_nodes[i], !maximizing_player) < start_val){
+				index = i;
+			}
+		}
+
+	}
+	printf("%s\n", current_node -> next_nodes[index] -> board_string);
+
+	return find_difference(current_node, current_node -> next_nodes[index]);
 }
