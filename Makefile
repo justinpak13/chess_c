@@ -18,3 +18,6 @@ test.o : test.c
 
 clean :
 	rm *.o
+
+debug : main.o board.o tree.o
+	gcc main.o board.o tree.o -o prog_debug  -g
