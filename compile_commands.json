@@ -1,0 +1,27 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-framework",
+      "CoreVideo",
+      "-framework",
+      "IOKit",
+      "-framework",
+      "Cocoa",
+      "-framework",
+      "GLUT",
+      "-I",
+      "include",
+      "-framework",
+      "OpenGL",
+      "lib/libraylib.a",
+      "-o",
+      "my_app",
+      "main.c"
+    ],
+    "directory": "/Users/justinpak/Documents/c/raylib",
+    "file": "/Users/justinpak/Documents/c/raylib/main.c",
+    "output": "/Users/justinpak/Documents/c/raylib/my_app"
+  }
+]

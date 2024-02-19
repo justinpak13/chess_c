@@ -1,5 +1,5 @@
 output : main.o board.o tree.o
-	gcc main.o board.o tree.o -o prog 
+	gcc -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -I include -framework OpenGL libraylib.a main.o board.o tree.o -o prog
 
 test : test.o board.o tree.o
 	gcc test.o board.o tree.o -o test
