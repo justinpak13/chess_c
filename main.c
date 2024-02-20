@@ -190,7 +190,7 @@ int main(void){
 		}
 
 		int input = 0;
-		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && check_winner(board) == 0 && board -> total_remaining > 0){
 			x = GetMouseX();
 			y = GetMouseY();
 			
@@ -220,10 +220,9 @@ int main(void){
 			    }
 			}
 
-
 		
-		int check = add_char(board, player_char, input);
-		if (check == 0){
+			if (validate(board, input) == 0){
+				add_char(board, player_char, input);
 				char temp[10];
 				
 				int counter = 0; 
@@ -250,43 +249,48 @@ int main(void){
 				//	break;
 				//}
 
-				}
+				if (check_winner(board) == 0 && board -> total_remaining > 0){
+					node *current_node = generate_node(board_string, player_char);
+					x = get_next_move(current_node, is_maximizing_player, board);
 
-				node *current_node = generate_node(board_string, player_char);
-				x = get_next_move(current_node, is_maximizing_player, board);
 
+					free_tree(current_node);
 
-				free_tree(current_node);
-
-				add_char(board, computer_char, x);
-				char temp[10];
-				
-				int counter = 0; 
-				for (int i = 0; i < 3; i++){
-					for (int j = 0; j <3; j++){
-						temp[counter] = board -> values[i][j];
-						counter++;
+					add_char(board, computer_char, x);
+					char temp[10];
+					
+					int counter = 0; 
+					
+					for (int i = 0; i < 3; i++){
+						for (int j = 0; j <3; j++){
+							temp[counter] = board -> values[i][j];
+							counter++;
+						}
 					}
+					temp[9] = '\0';
+					strcpy(board_string, temp);
+					
+
+					//if (check_winner(board) == 1){
+					//	printf("X wins!\n");
+					//	break;
+					//} 
+
+					//if (check_winner(board) == -1){
+					//	printf("O wins!\n");
+					//	break;
+					//} 
+
+					//if (board -> total_remaining == 0){
+					//	break;
+					//}
 				}
-				temp[9] = '\0';
-				strcpy(board_string, temp);
-				
 
-				//if (check_winner(board) == 1){
-				//	printf("X wins!\n");
-				//	break;
-				//} 
 
-				//if (check_winner(board) == -1){
-				//	printf("O wins!\n");
-				//	break;
-				//} 
-
-				//if (board -> total_remaining == 0){
-				//	break;
-				//}
+			}
 
 		}
+
 
 
 		

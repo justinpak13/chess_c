@@ -74,7 +74,7 @@ int validate(Board *board, int coord){
 	for (int i = 0; i < NUMBER_OF_CHOICES; i++){
 		if (board -> remaining[i] == coord){
 			// is a valid choice 
-			board -> remaining[i] = 0;
+			//board -> remaining[i] = 0;
 			return 0;
 		}
 	}
@@ -134,6 +134,8 @@ int add_char(Board *board, char c, int i){
 
 		board -> total_remaining -= 1;
 	}
+
+	board -> remaining[i-1] = 0;
 	return 0;
 }
 
